@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity Members Dashboard</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- 自訂 CSS 與 Antigravity 動態特效 -->
+    <style>
+        /* 定義無重力懸浮動畫 */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* 懸浮卡片類別 */
+        .antigravity-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .antigravity-float-delayed {
+            animation: float 7s ease-in-out infinite 1.5s;
+        }
+
+        /* 自訂卷軸樣式 */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(237, 233, 254, 0.8);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(192, 132, 252, 0.65);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(217, 70, 239, 0.75);
+        }
+    </style>
+</head>
+
+<body
+class="bg-gradient-to-br from-violet-50 via-pink-50 to-white text-slate-800 min-h-screen relative overflow-x-hidden font-sans selection:bg-fuchsia-200 selection:text-violet-950">
+
+    <!-- 背景未來感星空光暈裝飾 -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-violet-300/30 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 right-1/4 w-96 h-96 bg-pink-300/30 rounded-full blur-3xl pointer-events-none">
+    </div>
+
+    <!-- 主容器 -->
+    <div class="max-w-7xl mx-auto px-4 py-12 relative z-10">
+
+        <!-- 標題區 -->
+        <header class="text-center mb-12 antigravity-float">
+            <h1
+                class="text-4xl md:text-5xl font-extrabold tracking-wider bg-gradient-to-r from-violet-700 via-fuchsia-600 to-pink-500 bg-clip-text text-transparent drop-shadow-[0_4px_12px_rgba(192,38,211,0.16)]">
+                ANTIGRAVITY MEMBERS
+            </h1>
+            <p class="text-slate-500 mt-2 text-sm md:text-base tracking-widest uppercase">Zero-Gravity Data Control
+                Interface</p>
+        </header>
+
+        <!-- 雙欄排版：左側表單 / 右側表格 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            <!-- 1. 左側：新增會員表單 (佔 4 欄) -->
+            <div
+                class="lg:col-span-4 backdrop-blur-md bg-white/80 border border-violet-100 rounded-2xl p-6 md:p-8 shadow-[0_12px_36px_rgba(124,58,237,0.10)] antigravity-float transition-all duration-300 hover:border-violet-300 hover:shadow-[0_16px_40px_rgba(192,38,211,0.16)]">
+                <h2 class="text-xl font-bold text-violet-800 mb-6 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z">
+                        </path>
+                    </svg>
+                    新增會員資料
+                </h2>
+
+                <form id="memberForm" class="space-y-5">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">姓名
+                            (Name)</label>
+                        <input type="text" id="name" required placeholder="請輸入姓名..."
+                            class="w-full bg-white border border-violet-200 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-200 transition-all duration-300">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">電子郵件
+                            (Email)</label>
+                        <input type="email" id="email" required placeholder="name@example.com"
+                            class="w-full bg-white border border-violet-200 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-200 transition-all duration-300">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">角色等級
+                            (Role)</label>
+                        <select id="role" required
+                            class="w-full bg-white border border-violet-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-200 transition-all duration-300">
+                            <option value="" disabled selected>請選擇角色等級</option>
+                            <option value="管理員" class="bg-white text-violet-700">管理員</option>
+                            <option value="進階會員" class="bg-white text-fuchsia-700">進階會員</option>
+                            <option value="一般會員" class="bg-white text-pink-700">一般會員</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="submitBtn"
+                        class="w-full mt-4 bg-gradient-to-r from-violet-600 to-fuchsia-500 hover:from-violet-700 hover:to-fuchsia-600 text-white font-bold py-3.5 px-6 rounded-xl shadow-[0_8px_20px_rgba(168,85,247,0.22)] hover:shadow-[0_12px_28px_rgba(192,38,211,0.30)] transform hover:-translate-y-0.5 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
+                        <span>發射入庫</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- 2. 右側：會員資料表格 (佔 8 欄) -->
+            <div
+                class="lg:col-span-8 backdrop-blur-md bg-white/80 border border-pink-100 rounded-2xl p-6 md:p-8 shadow-[0_12px_36px_rgba(219,39,119,0.08)] antigravity-float-delayed transition-all duration-300 hover:border-pink-300 hover:shadow-[0_16px_40px_rgba(219,39,119,0.14)]">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-fuchsia-800 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-fuchsia-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4">
+                            </path>
+                        </svg>
+                        太空資料庫清單
+                    </h2>
+                    <button onclick="fetchMembers()"
+                        class="text-xs text-violet-700 hover:text-violet-900 border border-violet-200 px-3 py-1.5 rounded-lg hover:bg-violet-50 transition-all duration-200 cursor-pointer flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                            </path>
+                        </svg>
+                        重新整理
+                    </button>
+                </div>
+
+                <!-- 表格容器 -->
+                <div class="overflow-x-auto relative min-h-[300px] flex flex-col justify-center">
+
+                    <!-- 霓虹流光旋轉 Loading 動畫遮罩 -->
+                    <div id="loadingOverlay"
+                        class="absolute inset-0 bg-white/85 backdrop-blur-sm flex flex-col items-center justify-center z-20 transition-opacity duration-300">
+                        <div class="relative w-16 h-16">
+                            <div class="absolute inset-0 rounded-full border-4 border-violet-200"></div>
+                            <div
+                                class="absolute inset-0 rounded-full border-4 border-fuchsia-500 border-t-transparent animate-spin shadow-[0_0_15px_rgba(217,70,239,0.35)]">
+                            </div>
+                        </div>
+                        <span
+                            class="text-violet-700 text-sm mt-4 tracking-widest animate-pulse font-medium">資料傳輸中...</span>
+                    </div>
+
+                    <!-- 表格本體 -->
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-violet-100 text-slate-500 text-xs uppercase tracking-wider">
+                                <th class="py-3 px-4 font-semibold">ID</th>
+                                <th class="py-3 px-4 font-semibold">姓名</th>
+                                <th class="py-3 px-4 font-semibold">Email</th>
+                                <th class="py-3 px-4 font-semibold">角色</th>
+                            </tr>
+                        </thead>
+                        <tbody id="memberTableBody" class="divide-y divide-violet-100 text-sm text-slate-700">
+                            <!-- 動態渲染資料插入點 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 自訂美化提示框 (Toast / Modal) -->
+    <div id="toastNotification"
+        class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div id="toastContent"
+            class="backdrop-blur-md bg-white/95 border border-violet-200 text-slate-800 px-6 py-4 rounded-xl shadow-[0_12px_32px_rgba(124,58,237,0.16)] flex items-center gap-3">
+            <span id="toastIcon">✨</span>
+            <span id="toastMessage" class="text-sm font-medium">提示訊息</span>
+        </div>
+    </div>
+
+    <!-- JavaScript 邏輯 -->
+    <script>
+        // 留空或使用占位符提醒更換的 API_URL
+        const API_URL = "https://script.google.com/macros/s/AKfycbzYP3ngTDRs9qLZ_gVqHPixODWhGKb4ql8rAN547aV60aym6GisSTiitP6oEqUfsfTwBg/exec";
+
+        // 顯示自訂美化提示框函式
+        function showToast(message, type = "success") {
+            const toast = document.getElementById('toastNotification');
+            const content = document.getElementById('toastContent');
+            const msgEl = document.getElementById('toastMessage');
+            const iconEl = document.getElementById('toastIcon');
+
+            msgEl.textContent = message;
+
+            if (type === "success") {
+                content.className = "backdrop-blur-md bg-white/95 border border-violet-200 text-slate-800 px-6 py-4 rounded-xl shadow-[0_12px_32px_rgba(124,58,237,0.16)] flex items-center gap-3";
+                iconEl.textContent = "🚀";
+            } else {
+                content.className = "backdrop-blur-md bg-white/95 border border-pink-200 text-slate-800 px-6 py-4 rounded-xl shadow-[0_12px_32px_rgba(219,39,119,0.16)] flex items-center gap-3";
+                iconEl.textContent = "⚠️";
+            }
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3500);
+        }
+
+        // 根據角色等級回傳對應的霓虹 Badge 樣式
+        function getRoleBadge(role) {
+            switch (role) {
+                case '管理員':
+                    return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-violet-50 border border-violet-200 text-violet-700">管理員</span>`;
+                case '進階會員':
+                    return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-fuchsia-50 border border-fuchsia-200 text-fuchsia-700">進階會員</span>`;
+                case '一般會員':
+                default:
+                    return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-pink-50 border border-pink-200 text-pink-700">${role || '一般會員'}</span>`;
+            }
+        }
+
+        // 非同步讀取資料 (GET)
+        async function fetchMembers() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const tableBody = document.getElementById('memberTableBody');
+
+            // 顯示 Loading 動畫
+            loadingOverlay.style.opacity = '1';
+            loadingOverlay.style.pointerEvents = 'auto';
+
+            try {
+                const response = await fetch(`${API_URL}?action=read`);
+                const result = await response.json();
+
+                if (result.status === "success") {
+                    const members = result.data || [];
+
+                    if (members.length === 0) {
+                        tableBody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-slate-500">目前尚無太空成員資料</td></tr>`;
+                    } else {
+                        tableBody.innerHTML = members.map(m => `
+              <tr class="hover:bg-violet-50/80 transition-colors duration-200">
+                <td class="py-3 px-4 font-mono text-violet-700">#${m.id}</td>
+                <td class="py-3 px-4 font-medium text-slate-800">${escapeHtml(m.name)}</td>
+                <td class="py-3 px-4 text-slate-600">${escapeHtml(m.email)}</td>
+                <td class="py-3 px-4">${getRoleBadge(m.role)}</td>
+              </tr>
+            `).join('');
+                    }
+                } else {
+                    showToast(result.message || "讀取資料失敗", "error");
+                }
+            } catch (error) {
+                console.error("Fetch error:", error);
+                showToast("連線至伺服器失敗，請檢查 API_URL", "error");
+                tableBody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-rose-600">連線錯誤，請確認 API 設定</td></tr>`;
+            } finally {
+                // 隱藏 Loading 動畫
+                loadingOverlay.style.opacity = '0';
+                loadingOverlay.style.pointerEvents = 'none';
+            }
+        }
+
+        // 防止 XSS 的簡單跳脫函式
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // 監聽表單提交事件 (POST)
+        document.getElementById('memberForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const originalBtnHtml = submitBtn.innerHTML;
+
+            // 將按鈕轉為 Loading 載入狀態，防止重複點擊
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>發射中...</span>
+      `;
+
+            const payload = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                role: document.getElementById('role').value
+            };
+
+            try {
+                // 使用 text/plain 避開 CORS 限制
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.status === "success") {
+                    showToast(result.message || "資料新增成功！", "success");
+                    // 清空表單
+                    document.getElementById('memberForm').reset();
+                    // 自動重新呼叫 fetchMembers 刷新右側表格
+                    await fetchMembers();
+                } else {
+                    showToast(result.message || "新增失敗", "error");
+                }
+            } catch (error) {
+                console.error("POST error:", error);
+                showToast("請求發送失敗，請檢查網路或 API 設定", "error");
+            } finally {
+                // 恢復按鈕狀態
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHtml;
+            }
+        });
+
+        // 頁面載入完成後自動執行首次資料讀取
+        window.addEventListener('DOMContentLoaded', () => {
+            // 提醒：如果是剛貼上範本，請記得將 API_URL 替換成你的 Google Apps Script 部署網址
+            if (API_URL.includes("https://script.google.com/macros/s/AKfycbzYP3ngTDRs9qLZ_gVqHPixODWhGKb4ql8rAN547aV60aym6GisSTiitP6oEqUfsfTwBg/exec")) {
+                document.getElementById('loadingOverlay').style.opacity = '0';
+                document.getElementById('loadingOverlay').style.pointerEvents = 'none';
+                document.getElementById('memberTableBody').innerHTML = `<tr><td colspan="4" class="text-center py-8 text-amber-700">請先在程式碼中將 <code>API_URL</code> 替換為你的 Google Apps Script 網頁應用程式 URL！</td></tr>`;
+                return;
+            }
+            fetchMembers();
+        });
+    </script>
+</body>
+
+</html>
