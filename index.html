@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="學習現代 HTML5 語意化與 CSS 淺色明亮紫色風格的網頁範例">
+    <title>HTML5 與 CSS 美化學習筆記</title>
+
+    <!-- 引入 Google Fonts 中文字型 (Noto Sans TC) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- 引入外部 CSS 樣式表 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 頁首區域 (Header) -->
+    <header>
+        <span class="badge">✨ 前端開發入門</span>
+        <h1>HTML5 與現代網頁設計</h1>
+        <p class="subtitle">探索語意化結構、CSS 變數系統與淺色明亮紫色系的視覺美學。</p>
+    </header>
+
+    <!-- 主要內容區域 (Main Content) -->
+    <main>
+        <!-- 主題文章卡片 -->
+        <article class="card">
+            <div class="card-header">
+                <span class="tag"># HTML5 核心</span>
+                <span class="card-date">2026 年學習紀錄</span>
+            </div>
+
+            <h2>🌐 建立結構完整的網頁骨架</h2>
+            <p>
+                在現代網頁設計中，HTML 負責**內容與骨架（結構）**，而 CSS 負責**視覺與外觀（風格）**。
+                透過將結構與樣式分開在不同的檔案中，能讓專案更好維護與擴展。
+            </p>
+            <p>
+                使用適當的語意化標籤（例如 <code>&lt;header&gt;</code>、<code>&lt;main&gt;</code>、<code>&lt;article&gt;</code> 與 <code>&lt;footer&gt;</code>），
+                不僅可以讓程式碼更容易被團隊閱讀，還能大幅提升搜尋引擎（SEO）的收錄效果。
+            </p>
+
+            <!-- 圖片展示區 -->
+            <div class="image-container">
+                <img src="./HTML5.png" alt="HTML5 徽章標誌">
+            </div>
+
+            <!-- 互動按鈕 -->
+            <a href="#features" class="btn-primary">
+                開始探索特性 <span>→</span>
+            </a>
+        </article>
+
+        <!-- 特色卡片網格 (Feature Grid) -->
+        <section id="features" class="feature-grid">
+            <div class="feature-box">
+                <div class="feature-icon">🎨</div>
+                <h3>紫色調美學</h3>
+                <p>運用明亮薰衣草紫漸層與柔和陰影，營造現代、乾淨且舒適的閱讀介面。</p>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon">📱</div>
+                <h3>RWD 響應式</h3>
+                <p>搭配 Viewport 與 CSS Grid，使網頁在手機、平板與桌機上都能完美自動適配。</p>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon">⚡</div>
+                <h3>微互動動態</h3>
+                <p>加入懸停浮起（Hover）與平滑過渡（Transition），讓頁面充滿靈活生動的質感。</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁尾區域 (Footer) -->
+    <footer>
+        <p>&copy; 2026 前端網頁學習專案 ｜ 以 HTML5 &amp; 現代 CSS 打造</p>
+    </footer>
+
+</body>
+</html>
