@@ -199,6 +199,48 @@
             </div>
 
         </div>
+
+        <section aria-labelledby="world-clock-title"
+            class="mt-10 rounded-2xl border border-cyan-200 bg-white/80 p-6 md:p-8 shadow-[0_16px_48px_rgba(14,116,144,0.08)]">
+            <div class="mb-5">
+                <h2 id="world-clock-title" class="flex items-center gap-2 text-xl font-bold text-cyan-900">
+                    <svg class="h-5 w-5 text-cyan-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                            d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    世界時區時鐘
+                </h2>
+                <p class="mt-1 text-sm text-slate-500">即時查看不同城市的當地時間</p>
+            </div>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                <article class="rounded-xl border border-cyan-100 bg-gradient-to-br from-cyan-50 to-white p-4">
+                    <h3 class="text-sm font-semibold text-cyan-900">台北</h3>
+                    <time id="clock-taipei" class="mt-2 block text-2xl font-bold tabular-nums text-slate-800">--:--:--</time>
+                    <p id="date-taipei" class="mt-1 text-xs text-slate-500">載入日期…</p>
+                </article>
+                <article class="rounded-xl border border-cyan-100 bg-gradient-to-br from-cyan-50 to-white p-4">
+                    <h3 class="text-sm font-semibold text-cyan-900">東京</h3>
+                    <time id="clock-tokyo" class="mt-2 block text-2xl font-bold tabular-nums text-slate-800">--:--:--</time>
+                    <p id="date-tokyo" class="mt-1 text-xs text-slate-500">載入日期…</p>
+                </article>
+                <article class="rounded-xl border border-cyan-100 bg-gradient-to-br from-cyan-50 to-white p-4">
+                    <h3 class="text-sm font-semibold text-cyan-900">新加坡</h3>
+                    <time id="clock-singapore" class="mt-2 block text-2xl font-bold tabular-nums text-slate-800">--:--:--</time>
+                    <p id="date-singapore" class="mt-1 text-xs text-slate-500">載入日期…</p>
+                </article>
+                <article class="rounded-xl border border-cyan-100 bg-gradient-to-br from-cyan-50 to-white p-4">
+                    <h3 class="text-sm font-semibold text-cyan-900">倫敦</h3>
+                    <time id="clock-london" class="mt-2 block text-2xl font-bold tabular-nums text-slate-800">--:--:--</time>
+                    <p id="date-london" class="mt-1 text-xs text-slate-500">載入日期…</p>
+                </article>
+                <article class="rounded-xl border border-cyan-100 bg-gradient-to-br from-cyan-50 to-white p-4">
+                    <h3 class="text-sm font-semibold text-cyan-900">紐約</h3>
+                    <time id="clock-new-york" class="mt-2 block text-2xl font-bold tabular-nums text-slate-800">--:--:--</time>
+                    <p id="date-new-york" class="mt-1 text-xs text-slate-500">載入日期…</p>
+                </article>
+            </div>
+        </section>
     </div>
 
     <!-- 自訂美化提示框 (Toast / Modal) -->
@@ -245,6 +287,41 @@
         function showCartCount() {
             const cartCount = document.getElementById('cartCount').textContent;
             showToast(`購物車目前有 ${cartCount} 件商品`);
+        }
+
+        const worldClocks = [
+            { id: 'taipei', timeZone: 'Asia/Taipei' },
+            { id: 'tokyo', timeZone: 'Asia/Tokyo' },
+            { id: 'singapore', timeZone: 'Asia/Singapore' },
+            { id: 'london', timeZone: 'Europe/London' },
+            { id: 'new-york', timeZone: 'America/New_York' }
+        ].map(clock => ({
+            ...clock,
+            timeFormatter: new Intl.DateTimeFormat('zh-TW', {
+                timeZone: clock.timeZone,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hourCycle: 'h23',
+                timeZoneName: 'short'
+            }),
+            dateFormatter: new Intl.DateTimeFormat('zh-TW', {
+                timeZone: clock.timeZone,
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'short'
+            })
+        }));
+
+        function updateWorldClocks() {
+            const now = new Date();
+            worldClocks.forEach(({ id, timeFormatter, dateFormatter }) => {
+                const timeElement = document.getElementById(`clock-${id}`);
+                timeElement.textContent = timeFormatter.format(now);
+                timeElement.dateTime = now.toISOString();
+                document.getElementById(`date-${id}`).textContent = dateFormatter.format(now);
+            });
         }
 
         // 根據角色等級回傳對應的海洋色系 Badge 樣式
@@ -369,6 +446,9 @@
 
         // 頁面載入完成後自動執行首次資料讀取
         window.addEventListener('DOMContentLoaded', () => {
+            updateWorldClocks();
+            setInterval(updateWorldClocks, 1000);
+
             // 提醒：如果是剛貼上範本，請記得將 API_URL 替換成你的 Google Apps Script 部署網址
             if (API_URL.includes("https://script.google.com/macros/s/AKfycbzYP3ngTDRs9qLZ_gVqHPixODWhGKb4ql8rAN547aV60aym6GisSTiitP6oEqUfsfTwBg/exec")) {
                 document.getElementById('loadingOverlay').style.opacity = '0';
