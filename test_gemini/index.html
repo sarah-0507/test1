@@ -64,6 +64,21 @@
     <!-- 主容器 -->
     <div class="max-w-7xl mx-auto px-4 py-12 relative z-10">
 
+        <div class="flex justify-end mb-4">
+            <button type="button" onclick="showCartCount()" aria-label="購物車，目前 0 件商品"
+                class="inline-flex items-center gap-2 rounded-xl border border-cyan-400/30 bg-slate-900/70 px-4 py-2 text-sm font-semibold text-cyan-100 transition-all duration-200 hover:border-cyan-300/60 hover:bg-cyan-500/15 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50">
+                <svg class="h-5 w-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                        d="M3 3h2l2.2 11.1a2 2 0 002 1.6h8.9a2 2 0 002-1.6L22 7H6M10 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z">
+                    </path>
+                </svg>
+                <span>購物車</span>
+                <span id="cartCount"
+                    class="inline-flex min-w-6 items-center justify-center rounded-full bg-cyan-400/15 px-2 py-0.5 text-xs text-cyan-200">0</span>
+            </button>
+        </div>
+
         <!-- 標題區 -->
         <header class="text-center mb-12 antigravity-float">
             <h1
@@ -225,6 +240,11 @@
                 toast.classList.remove('translate-y-0', 'opacity-100');
                 toast.classList.add('translate-y-24', 'opacity-0');
             }, 3500);
+        }
+
+        function showCartCount() {
+            const cartCount = document.getElementById('cartCount').textContent;
+            showToast(`購物車目前有 ${cartCount} 件商品`);
         }
 
         // 根據角色等級回傳對應的海洋色系 Badge 樣式
